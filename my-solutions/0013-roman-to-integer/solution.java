@@ -1,39 +1,29 @@
 class Solution {
     public int romanToInt(String s) {
-        int result = 0;
-        for (int i = 0; i < s.length(); i++) {
-            int s1 = value(s.charAt(i));
+            if (s == null || s.isEmpty()) return 0;
+            // using hashmap for roman and integers values
+            Map<Character, Integer> map = new HashMap<>();
+            map.put('I', 1);
+            map.put('V', 5);
+            map.put('X', 10);
+            map.put('L', 50);
+            map.put('C', 100);
+            map.put('D', 500);
+            map.put('M', 1000);
 
-            if (i + 1 < s.length()) {
-                int s2 = value(s.charAt(i + 1));
+            int total = 0;
+            int n = s.length();
 
-                if (s1 >= s2) {
-                    result += s1;
-                } else {
-                    result += s2 - s1;
-                    i++; // Пропускаем следующую цифру, так как мы её уже обработали
+            for (int i = 0; i < n; i++) {
+                int currentVal = map.get(s.charAt(i));
+
+                if (i < n - 1 && currentVal < map.get(s.charAt(i + 1))) {
+                    total -=  currentVal;
                 }
-            } else {
-                result += s1;
+                else {
+                    total += currentVal;
+                }
             }
+            return total;
         }
-        return result;
-    }
-
-    static int value(char r) {
-        return switch (r) {
-            case 'I' -> 1;
-            case 'V' -> 5;
-            case 'X' -> 10;
-            case 'L' -> 50;
-            case 'C' -> 100;
-            case 'D' -> 500;
-            case 'M' -> 1000;
-            default -> -1;
-        };
-        }
-
-        
-    }
-
-
+}
