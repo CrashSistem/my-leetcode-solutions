@@ -1,0 +1,16 @@
+class Solution {
+    public boolean isAnagram(String s, String t) {
+            if (s.length() != t.length()) return false;
+
+            int[] counts = new int[26]; // English alphabet has only 26 values in lowercase
+
+            for (int i = 0; i < s.length(); i++) {
+                counts[s.charAt(i) - 'a']++;
+                counts[t.charAt(i) - 'a']--;
+            }
+            for (int i = 0; i < 26; i++) {
+                if (counts[i] != 0) return false;
+            }
+            return true;
+        }
+}
